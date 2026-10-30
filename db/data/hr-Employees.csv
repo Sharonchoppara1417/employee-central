@@ -1,0 +1,4 @@
+ID,name,email,department,manager_ID,role
+E001,Siri Reddy,siri@example.com,Engineering,E002,employee
+E002,Ravi Kumar,ravi@example.com,Engineering,,manager
+E003,Anil Sharma,anil@example.com,Engineering,E002,employee

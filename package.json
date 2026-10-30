@@ -1,0 +1,39 @@
+{
+  "name": "employee-central-srv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch-leaverequests": "cds watch --open com.ec.hrportal.leaverequests/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@sap/cds": "^10.2.2"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^3.1.2",
+    "@sap/cds-dk": "^10.2.0",
+    "cds-plugin-ui5": "^0.17.0"
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/leaverequests"
+  ],  "cds": {
+    "requires": {
+      "auth": {
+        "kind": "mocked",
+        "users": {
+          "siri": { "password": "siri", "roles": ["employee"], "attr": { "employeeId": "E001" } },
+          "anil": { "password": "anil", "roles": ["employee"], "attr": { "employeeId": "E003" } },
+          "ravi": { "password": "ravi", "roles": ["manager", "employee"], "attr": { "employeeId": "E002" } }
+        }
+      }
+    }
+  }
+}

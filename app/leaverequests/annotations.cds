@@ -1,0 +1,1 @@
+using HrService as service from '../../srv/hr-service';

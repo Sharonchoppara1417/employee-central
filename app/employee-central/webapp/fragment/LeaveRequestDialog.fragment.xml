@@ -1,0 +1,73 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog
+        id="leaveDialog"
+        title="{i18n>newRequestTitle}"
+        contentWidth="26rem"
+        draggable="true">
+        <content>
+            <VBox class="sapUiSmallMargin">
+
+                <Label text="{i18n>colType}" required="true" labelFor="typeSelect" />
+                <Select
+                    id="typeSelect"
+                    width="100%"
+                    forceSelection="false"
+                    selectedKey="{form>/leaveTypeId}"
+                    items="{hr>/balances}"
+                    change=".onFormChange"
+                    valueState="{= ${form>/errors/leaveTypeId} ? 'Error' : 'None' }"
+                    valueStateText="{form>/errors/leaveTypeId}">
+                    <core:Item key="{hr>leaveTypeId}" text="{hr>leaveTypeName} ({hr>remaining})" />
+                </Select>
+
+                <Label text="{i18n>colFrom}" required="true" labelFor="fromPicker" class="sapUiSmallMarginTop" />
+                <DatePicker
+                    id="fromPicker"
+                    width="100%"
+                    value="{form>/from}"
+                    valueFormat="yyyy-MM-dd"
+                    displayFormat="medium"
+                    change=".onFormChange"
+                    valueState="{= ${form>/errors/from} ? 'Error' : 'None' }"
+                    valueStateText="{form>/errors/from}" />
+
+                <Label text="{i18n>colTo}" required="true" labelFor="toPicker" class="sapUiSmallMarginTop" />
+                <DatePicker
+                    id="toPicker"
+                    width="100%"
+                    value="{form>/to}"
+                    valueFormat="yyyy-MM-dd"
+                    displayFormat="medium"
+                    change=".onFormChange"
+                    valueState="{= ${form>/errors/to} ? 'Error' : 'None' }"
+                    valueStateText="{form>/errors/to}" />
+
+                <ObjectStatus
+                    class="sapUiTinyMarginTop"
+                    text="{i18n>workingDays}: {form>/days}"
+                    state="Information" />
+
+                <Label text="{i18n>reason}" required="true" labelFor="reasonArea" class="sapUiSmallMarginTop" />
+                <TextArea
+                    id="reasonArea"
+                    width="100%"
+                    rows="3"
+                    maxLength="200"
+                    showExceededText="true"
+                    value="{form>/reason}"
+                    change=".onFormChange"
+                    valueState="{= ${form>/errors/reason} ? 'Error' : 'None' }"
+                    valueStateText="{form>/errors/reason}" />
+
+            </VBox>
+        </content>
+        <beginButton>
+            <Button  id="submitRequestButton" text="{i18n>submit}" type="Emphasized" press=".onSubmitRequest" />
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>cancel}" press=".onCancelRequest" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,8 @@
+ID,employee_ID,leaveType_ID,startDate,endDate,days,reason,status,managerComment,createdAt
+R001,E001,LT1,2026-11-03,2026-11-05,3,Family function,Pending,,2026-10-27
+R002,E001,LT3,2026-09-14,2026-09-18,5,Vacation,Approved,Enjoy!,2026-09-01
+R003,E001,LT1,2026-08-10,2026-08-10,1,Personal work,Rejected,Release week - sorry.,2026-08-05
+R004,E003,LT2,2026-11-02,2026-11-02,1,Fever,Pending,,2026-10-28
+R005,E003,LT1,2026-12-22,2026-12-24,3,Travel,Pending,,2026-10-26
+R006,E002,LT2,2026-07-06,2026-07-07,2,Medical visit,Approved,,2026-07-01
+R007,E001,LT2,2026-10-19,2026-10-20,2,Fever and rest,Pending,,2026-10-21

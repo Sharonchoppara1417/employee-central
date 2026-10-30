@@ -1,0 +1,39 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog
+        id="decisionDialog"
+        title="{i18n>reviewTitle}"
+        contentWidth="26rem"
+        draggable="true">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <ObjectAttribute title="{i18n>colEmployee}" text="{decision>/request/employeeName}" />
+                <ObjectAttribute title="{i18n>colType}" text="{decision>/request/leaveTypeName}" />
+                <ObjectAttribute title="{i18n>colFrom}"
+                    text="{path: 'decision>/request/from', formatter: '.formatter.date'}" />
+                <ObjectAttribute title="{i18n>colTo}"
+                    text="{path: 'decision>/request/to', formatter: '.formatter.date'}" />
+                <ObjectAttribute title="{i18n>colDays}" text="{decision>/request/days}" />
+                <ObjectAttribute title="{i18n>reason}" text="{decision>/request/reason}" />
+
+                <Label text="{i18n>comment}" labelFor="decisionComment" class="sapUiSmallMarginTop" />
+                <TextArea
+                    id="decisionComment"
+                    width="100%"
+                    rows="3"
+                    maxLength="200"
+                    showExceededText="true"
+                    value="{decision>/comment}"
+                    liveChange=".onDecisionCommentChange"
+                    valueState="{= ${decision>/error} ? 'Error' : 'None' }"
+                    valueStateText="{decision>/error}" />
+            </VBox>
+        </content>
+        <buttons>
+            <Button   id="approveButton" text="{i18n>approve}" type="Accept" press=".onApprove" />
+            <Button text="{i18n>reject}" type="Reject" press=".onReject" />
+            <Button text="{i18n>cancel}" press=".onCancelDecision" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

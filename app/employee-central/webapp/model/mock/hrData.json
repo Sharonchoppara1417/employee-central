@@ -1,0 +1,43 @@
+{
+  "employees": [
+    { "id": "E001", "name": "Siri Reddy",  "email": "siri@example.com",  "department": "Engineering", "managerId": "E002", "role": "employee" },
+    { "id": "E002", "name": "Ravi Kumar",  "email": "ravi@example.com",  "department": "Engineering", "managerId": null,   "role": "manager" },
+    { "id": "E003", "name": "Anil Sharma", "email": "anil@example.com",  "department": "Engineering", "managerId": "E002", "role": "employee" }
+  ],
+  "leaveTypes": [
+    { "id": "LT1", "name": "Casual", "annualQuota": 12 },
+    { "id": "LT2", "name": "Sick",   "annualQuota": 10 },
+    { "id": "LT3", "name": "Earned", "annualQuota": 15 }
+  ],
+  "leaveBalances": [
+    { "employeeId": "E001", "leaveTypeId": "LT1", "year": 2026, "remaining": 9 },
+    { "employeeId": "E001", "leaveTypeId": "LT2", "year": 2026, "remaining": 10 },
+    { "employeeId": "E001", "leaveTypeId": "LT3", "year": 2026, "remaining": 12 },
+    { "employeeId": "E002", "leaveTypeId": "LT1", "year": 2026, "remaining": 11 },
+    { "employeeId": "E002", "leaveTypeId": "LT2", "year": 2026, "remaining": 8 },
+    { "employeeId": "E002", "leaveTypeId": "LT3", "year": 2026, "remaining": 15 },
+     { "employeeId": "E003", "leaveTypeId": "LT1", "year": 2026, "remaining": 12 },
+    { "employeeId": "E003", "leaveTypeId": "LT2", "year": 2026, "remaining": 10 },
+    { "employeeId": "E003", "leaveTypeId": "LT3", "year": 2026, "remaining": 15 }
+  ],
+  "leaveRequests": [
+    { "id": "R001", "employeeId": "E001", "leaveTypeId": "LT1", "from": "2026-11-03", "to": "2026-11-05", "days": 3, "reason": "Family function", "status": "Pending",  "managerComment": "",                      "createdAt": "2026-10-27" },
+    { "id": "R002", "employeeId": "E001", "leaveTypeId": "LT3", "from": "2026-09-14", "to": "2026-09-18", "days": 5, "reason": "Vacation",        "status": "Approved", "managerComment": "Enjoy!",                "createdAt": "2026-09-01" },
+    { "id": "R003", "employeeId": "E001", "leaveTypeId": "LT1", "from": "2026-08-10", "to": "2026-08-10", "days": 1, "reason": "Personal work",   "status": "Rejected", "managerComment": "Release week, sorry.",  "createdAt": "2026-08-05" },
+    { "id": "R004", "employeeId": "E003", "leaveTypeId": "LT2", "from": "2026-11-02", "to": "2026-11-02", "days": 1, "reason": "Fever",           "status": "Pending",  "managerComment": "",                      "createdAt": "2026-10-28" },
+    { "id": "R005", "employeeId": "E003", "leaveTypeId": "LT1", "from": "2026-12-22", "to": "2026-12-24", "days": 3, "reason": "Travel",          "status": "Pending",  "managerComment": "",                      "createdAt": "2026-10-26" },
+    { "id": "R006", "employeeId": "E002", "leaveTypeId": "LT2", "from": "2026-07-06", "to": "2026-07-07", "days": 2, "reason": "Medical visit",   "status": "Approved", "managerComment": "",                      "createdAt": "2026-07-01" },
+    { "id": "R007", "employeeId": "E001", "leaveTypeId": "LT2", "from": "2026-10-19", "to": "2026-10-20", "days": 2, "reason": "Fever and rest", "status": "Pending", "managerComment": "", "createdAt": "2026-10-21" }
+  ],
+    
+  "payslips": [
+    { "id": "P-E001-2026-10", "employeeId": "E001", "month": "2026-10", "basic": 50000, "hra": 20000, "special": 15000, "pf": 6000, "tax": 9500 },
+    { "id": "P-E001-2026-09", "employeeId": "E001", "month": "2026-09", "basic": 50000, "hra": 20000, "special": 15000, "pf": 6000, "tax": 9500 },
+    { "id": "P-E001-2026-08", "employeeId": "E001", "month": "2026-08", "basic": 50000, "hra": 20000, "special": 15000, "pf": 6000, "tax": 9500 },
+    { "id": "P-E001-2026-07", "employeeId": "E001", "month": "2026-07", "basic": 50000, "hra": 20000, "special": 12000, "pf": 6000, "tax": 8800 },
+    { "id": "P-E002-2026-10", "employeeId": "E002", "month": "2026-10", "basic": 80000, "hra": 32000, "special": 28000, "pf": 9600, "tax": 21000 },
+    { "id": "P-E002-2026-09", "employeeId": "E002", "month": "2026-09", "basic": 80000, "hra": 32000, "special": 28000, "pf": 9600, "tax": 21000 },
+    { "id": "P-E002-2026-08", "employeeId": "E002", "month": "2026-08", "basic": 80000, "hra": 32000, "special": 28000, "pf": 9600, "tax": 21000 },
+    { "id": "P-E002-2026-07", "employeeId": "E002", "month": "2026-07", "basic": 80000, "hra": 32000, "special": 25000, "pf": 9600, "tax": 19500 }
+  ]
+}

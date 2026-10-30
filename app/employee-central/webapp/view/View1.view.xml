@@ -1,0 +1,232 @@
+<mvc:View
+    controllerName="com.ec.hrportal.employeecentral.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}" busy="{app>/busy}">
+        <headerContent>
+            <core:InvisibleText id="roleLabel" text="{i18n>roleSwitchLabel}" />
+            <SegmentedButton
+                id="roleSwitch"
+                selectedKey="{app>/role}"
+                selectionChange=".onRoleChange"
+                ariaLabelledBy="roleLabel">
+                <items>
+                    <SegmentedButtonItem key="employee" text="{i18n>roleEmployee}" />
+                    <SegmentedButtonItem key="manager" text="{i18n>roleManager}" />
+                </items>
+            </SegmentedButton>
+        </headerContent>
+        <content>
+            <MessageStrip
+                text="{i18n>loadError}"
+                type="Error"
+                showIcon="true"
+                visible="{app>/loadFailed}"
+                class="sapUiSmallMargin">
+                <link>
+                    <Link text="{i18n>retry}" press=".onRetry" />
+                </link>
+            </MessageStrip>
+
+            <IconTabBar
+                id="tabBar"
+                selectedKey="{app>/section}"
+                select=".onTabSelect"
+                expandable="false">
+                <items>
+
+                    <!-- HOME -->
+                    <IconTabFilter key="home" icon="sap-icon://home" text="{i18n>tabHome}">
+                        <VBox class="sapUiSmallMargin">
+                            <Title text="{hr>/user/name}" />
+                            <Text text="{hr>/user/department}" />
+                        </VBox>
+                        <FlexBox wrap="Wrap" items="{hr>/balances}">
+                            <GenericTile
+                                class="sapUiSmallMargin"
+                                header="{hr>leaveTypeName}"
+                                subheader="{i18n>daysRemaining}">
+                                <TileContent>
+                                    <NumericContent value="{hr>remaining}" withMargin="false" />
+                                </TileContent>
+                            </GenericTile>
+                        </FlexBox>
+                    </IconTabFilter>
+
+                    <!-- MY LEAVE -->
+                    <IconTabFilter key="leave" icon="sap-icon://offsite-work" text="{i18n>tabLeave}">
+                        <Table
+                            id="leaveTable"
+                            items="{hr>/requests}"
+                            noDataText="{i18n>noRequests}"
+                            class="sapUiResponsiveMargin"
+                            width="auto">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <Title text="{i18n>tabLeave}" />
+                                    <ToolbarSpacer />
+                                    <Button  id="newRequestButton" text="{i18n>newRequest}" type="Emphasized" icon="sap-icon://add" press=".onNewRequest" />
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column><Text text="{i18n>colType}" /></Column>
+                                <Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colFrom}" /></Column>
+                                <Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colTo}" /></Column>
+                                <Column hAlign="End"><Text text="{i18n>colDays}" /></Column>
+                                <Column><Text text="{i18n>colStatus}" /></Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true"><Text text="{i18n>colManagerComment}" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{hr>leaveTypeName}" />
+                                        <Text text="{path: 'hr>from', formatter: '.formatter.date'}" />
+                                        <Text text="{path: 'hr>to', formatter: '.formatter.date'}" />
+                                        <Text text="{hr>days}" />
+                                        <ObjectStatus
+                                            text="{path: 'hr>status', formatter: '.formatter.statusText'}"
+                                            state="{path: 'hr>status', formatter: '.formatter.statusState'}" />
+                                        <Text text="{hr>managerComment}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+
+                    <!-- ATTENDANCE -->
+                    <IconTabFilter key="attendance" icon="sap-icon://date-time" text="{i18n>tabAttendance}">
+                        <VBox class="sapUiResponsiveMargin">
+                            <HBox alignItems="Center" wrap="Wrap">
+                                <Label text="{i18n>month}" labelFor="monthSelect" class="sapUiSmallMarginEnd" />
+                                <Select
+                                    id="monthSelect"
+                                    class="sapUiMediumMarginEnd"
+                                    items="{app>/months}"
+                                    selectedKey="{app>/attMonth}"
+                                    change=".onMonthChange">
+                                    <core:Item key="{app>key}" text="{path: 'app>key', formatter: '.formatter.monthLabel'}" />
+                                </Select>
+                                <ObjectStatus class="sapUiSmallMarginEnd" state="Success"
+                                    text="{i18n>statusPresent}: {hr>/attSummary/Present}" />
+                                <ObjectStatus class="sapUiSmallMarginEnd" state="Warning"
+                                    text="{i18n>statusLate}: {hr>/attSummary/Late}" />
+                                <ObjectStatus class="sapUiSmallMarginEnd" state="Error"
+                                    text="{i18n>statusAbsent}: {hr>/attSummary/Absent}" />
+                                <ObjectStatus state="Information"
+                                    text="{i18n>statusLeave}: {hr>/attSummary/Leave}" />
+                            </HBox>
+
+                            <Table
+                                id="attendanceTable"
+                                class="sapUiSmallMarginTop"
+                                items="{hr>/attendance}"
+                                noDataText="{i18n>noAttendance}"
+                                width="auto">
+                                <columns>
+                                    <Column><Text text="{i18n>colDate}" /></Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colCheckIn}" /></Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colCheckOut}" /></Column>
+                                    <Column><Text text="{i18n>colStatus}" /></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text text="{path: 'hr>date', formatter: '.formatter.dateWithDay'}" />
+                                            <Text text="{path: 'hr>checkIn', formatter: '.formatter.time'}" />
+                                            <Text text="{path: 'hr>checkOut', formatter: '.formatter.time'}" />
+                                            <ObjectStatus
+                                                text="{path: 'hr>status', formatter: '.formatter.statusText'}"
+                                                state="{path: 'hr>status', formatter: '.formatter.attendanceState'}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+                    </IconTabFilter>
+
+                    <!-- PAYSLIPS -->
+                    <IconTabFilter key="payslips" icon="sap-icon://money-bills" text="{i18n>tabPayslips}">
+                        <Table
+                            items="{hr>/payslips}"
+                            noDataText="{i18n>noPayslips}"
+                            class="sapUiResponsiveMargin"
+                            width="auto">
+                            <columns>
+                                <Column><Text text="{i18n>colMonth}" /></Column>
+                                <Column hAlign="End" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colGross}" /></Column>
+                                <Column hAlign="End" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colDeductions}" /></Column>
+                                <Column hAlign="End"><Text text="{i18n>colNet}" /></Column>
+                                <Column hAlign="Center"><Text text="{i18n>colPayslip}" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{path: 'hr>month', formatter: '.formatter.monthLabel'}" />
+                                        <Text text="{path: 'hr>gross', formatter: '.formatter.inr'}" />
+                                        <Text text="{path: 'hr>deductions', formatter: '.formatter.inr'}" />
+                                        <ObjectNumber
+                                            number="{path: 'hr>net', formatter: '.formatter.inr'}"
+                                            emphasized="true"
+                                            state="Success" />
+                                        <Button
+                                            icon="sap-icon://download"
+                                            text="{i18n>download}"
+                                            type="Transparent"
+                                            press=".onDownloadPayslip" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+
+                    <!-- APPROVALS (manager only) -->
+                    <IconTabFilter
+                        key="approvals"
+                        icon="sap-icon://approvals"
+                        text="{i18n>tabApprovals}"
+                        count="{hr>/pendingCount}"
+                        visible="{= ${app>/role} === 'manager' }">
+                        <Table
+                            items="{hr>/teamRequests}"
+                            noDataText="{i18n>noTeamRequests}"
+                            class="sapUiResponsiveMargin"
+                            width="auto">
+                            <columns>
+                                <Column><Text text="{i18n>colEmployee}" /></Column>
+                                <Column><Text text="{i18n>colType}" /></Column>
+                                <Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colFrom}" /></Column>
+                                <Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colTo}" /></Column>
+                                <Column hAlign="End"><Text text="{i18n>colDays}" /></Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true"><Text text="{i18n>reason}" /></Column>
+                                <Column><Text text="{i18n>colStatus}" /></Column>
+                                <Column hAlign="Center"><Text text="{i18n>colAction}" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{hr>employeeName}" />
+                                        <Text text="{hr>leaveTypeName}" />
+                                        <Text text="{path: 'hr>from', formatter: '.formatter.date'}" />
+                                        <Text text="{path: 'hr>to', formatter: '.formatter.date'}" />
+                                        <Text text="{hr>days}" />
+                                        <Text text="{hr>reason}" />
+                                        <ObjectStatus
+                                            text="{path: 'hr>status', formatter: '.formatter.statusText'}"
+                                            state="{path: 'hr>status', formatter: '.formatter.statusState'}" />
+                                        <Button
+                                            text="{i18n>review}"
+                                            type="Emphasized"
+                                            visible="{= ${hr>status} === 'Pending' }"
+                                            press=".onReviewRequest" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+
+                </items>
+            </IconTabBar>
+        </content>
+    </Page>
+</mvc:View>
